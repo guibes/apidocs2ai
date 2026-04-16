@@ -82,7 +82,7 @@ export async function parseSpec(
       }
     }
 
-    const rawSpec = (parseResult.schema as Record<string, unknown>) || {};
+    const rawSpec = ((parseResult as unknown as { specification?: Record<string, unknown> }).specification ?? parseResult.schema as Record<string, unknown>) || {};
     const version = extractVersion(rawSpec);
     const specToDeref = await upgradeIfNeeded(rawSpec, warnings);
     const dereferencedSpec = derefSpec(JSON.stringify(specToDeref), warnings);
@@ -108,13 +108,36 @@ export async function parseSpec(
       );
     }
 
-    // Attempt 2: dereference directly without validation
+    // Attempt 2: parse JSON/YAML directly, skip validation entirely
     try {
-      const rawSpec = derefSpec(content, warnings);
+      // Parse raw content first — always works for valid JSON/YAML
+      let rawSpec: Record<string, unknown> = {};
+      try {
+        rawSpec = JSON.parse(content) as Record<string, unknown>;
+      } catch {
+        // Not JSON — try dereference which handles YAML too
+        const derefResult = dereference(content);
+        const derefSpec = derefResult.specification as Record<string, unknown>;
+        if (derefSpec && Object.keys(derefSpec).length > 0) {
+          rawSpec = derefSpec;
+        }
+      }
+
+      // Optionally enhance with dereference ($ref resolution) if not already done
+      if (Object.keys(rawSpec).length > 0) {
+        try {
+          const derefResult = dereference(JSON.stringify(rawSpec));
+          const derefed = derefResult.specification as Record<string, unknown>;
+          if (derefed && Object.keys(derefed).length > 0) {
+            rawSpec = derefed;
+          }
+        } catch {
+          warnings.push("$ref dereferencing skipped — using raw spec");
+        }
+      }
+
       const version = extractVersion(rawSpec);
-      const specToDeref = await upgradeIfNeeded(rawSpec, warnings);
-      // Dereference the upgraded spec
-      const finalSpec = derefSpec(JSON.stringify(specToDeref), warnings);
+      const finalSpec = await upgradeIfNeeded(rawSpec, warnings);
       return { spec: finalSpec, version, warnings };
     } catch (fallbackErr) {
       if (fallbackErr instanceof AppError) throw fallbackErr;
