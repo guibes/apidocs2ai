@@ -1,6 +1,6 @@
 {
   "name": "apidocs2ai",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Convert OpenAPI/Swagger specs to AI-friendly formats with 85%+ token reduction",
   "type": "module",
   "main": "./dist/index.js",
@@ -8,8 +8,23 @@
   "bin": {
     "apidocs2ai": "./dist/cli.js"
   },
-  "files": ["dist", "README.md", "LICENSE", "AGENTS.md", "CLAUDE.md"],
-  "keywords": ["openapi", "swagger", "ai", "llm", "token", "compression", "lapis", "cli"],
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE",
+    "AGENTS.md",
+    "CLAUDE.md"
+  ],
+  "keywords": [
+    "openapi",
+    "swagger",
+    "ai",
+    "llm",
+    "token",
+    "compression",
+    "lapis",
+    "cli"
+  ],
   "scripts": {
     "start": "bun src/cli.ts",
     "test": "bun test",
