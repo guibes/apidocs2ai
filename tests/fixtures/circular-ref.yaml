@@ -1,0 +1,27 @@
+openapi: "3.0.3"
+info:
+  title: "Circular Ref Test"
+  version: "1.0.0"
+paths:
+  /nodes:
+    get:
+      operationId: "getNodes"
+      summary: "Get node tree"
+      responses:
+        "200":
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Node"
+components:
+  schemas:
+    Node:
+      type: object
+      properties:
+        id:
+          type: string
+        children:
+          type: array
+          items:
+            $ref: "#/components/schemas/Node"

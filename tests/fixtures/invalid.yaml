@@ -1,0 +1,9 @@
+openapi: "3.0.3"
+info:
+  title: "Invalid Spec"
+  # missing version field — intentionally invalid
+paths:
+  /broken:
+    get:
+      # missing responses — invalid
+      summary: "broken endpoint"

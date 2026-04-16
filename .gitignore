@@ -1,0 +1,31 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+
+# Bun
+# bun.lockb  (keep it — useful for reproducible installs)
+
+# Binary outputs
+apidocs2ai-darwin-arm64
+apidocs2ai-darwin-x64
+apidocs2ai-linux-x64
+apidocs2ai-linux-arm64
+apidocs2ai-windows-x64.exe
+apidocs2ai-test
+
+# OS files
+.DS_Store
+Thumbs.db
+*.log
+
+# IDE
+.vscode/
+.idea/
+
+# Test artifacts
+/tmp/apidocs2ai-*
+
+# Evidence (local build artifacts)
+.sisyphus/evidence/

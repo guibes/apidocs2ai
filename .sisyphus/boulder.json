@@ -1,0 +1,94 @@
+{
+  "active_plan": "/home/geovaneguibes/Codes/Pessoal/Opensource/api-docs-to-ai/.sisyphus/plans/apidocs2ai.md",
+  "started_at": "2026-04-16T18:35:41.012Z",
+  "session_ids": [
+    "ses_268828337ffezGDtemUBt24Rrb"
+  ],
+  "session_origins": {
+    "ses_268828337ffezGDtemUBt24Rrb": "direct"
+  },
+  "plan_name": "apidocs2ai",
+  "agent": "atlas",
+  "task_sessions": {
+    "todo:1": {
+      "task_key": "todo:1",
+      "task_label": "1",
+      "task_title": "Project Scaffold + Tooling Setup",
+      "session_id": "ses_2686a5f8dffe3jSmgck21bFufU",
+      "agent": "Sisyphus-Junior",
+      "category": "quick",
+      "updated_at": "2026-04-16T18:38:38.117Z"
+    },
+    "todo:2": {
+      "task_key": "todo:2",
+      "task_label": "2",
+      "task_title": "Type Definitions + Interfaces",
+      "session_id": "ses_2686873eeffeAiivzdeYBSii5V",
+      "agent": "Sisyphus-Junior",
+      "category": "quick",
+      "updated_at": "2026-04-16T18:41:06.011Z"
+    },
+    "todo:4": {
+      "task_key": "todo:4",
+      "task_label": "4",
+      "task_title": "Output Utilities (stdout/stderr/file/clipboard)",
+      "session_id": "ses_26862f6eeffe038C7j2oWryk1w",
+      "agent": "Sisyphus-Junior",
+      "category": "quick",
+      "updated_at": "2026-04-16T18:46:41.682Z"
+    },
+    "todo:5": {
+      "task_key": "todo:5",
+      "task_label": "5",
+      "task_title": "Parser Adapter (@scalar/openapi-parser wrapper)",
+      "session_id": "ses_26860eac4ffexAYWMLadaf430J",
+      "agent": "Sisyphus-Junior",
+      "category": "deep",
+      "updated_at": "2026-04-16T18:52:07.128Z"
+    },
+    "todo:6": {
+      "task_key": "todo:6",
+      "task_label": "6",
+      "task_title": "LAPIS Formatter — [meta] + [types] Sections",
+      "session_id": "ses_2685c1da9ffeicMEExqgRhngwc",
+      "agent": "Sisyphus-Junior",
+      "category": "deep",
+      "updated_at": "2026-04-16T18:57:00.886Z"
+    },
+    "todo:10": {
+      "task_key": "todo:10",
+      "task_label": "10",
+      "task_title": "CLI Layer (Commander.js + stdin + TTY + exit codes)",
+      "session_id": "ses_26854c803ffe96NcgQew6F03jY",
+      "agent": "Sisyphus-Junior",
+      "category": "deep",
+      "updated_at": "2026-04-16T19:04:26.472Z"
+    },
+    "todo:11": {
+      "task_key": "todo:11",
+      "task_label": "11",
+      "task_title": "AGENTS.md + CLAUDE.md for AI Discoverability",
+      "session_id": "ses_2684d09c7ffeYGfkew5goZEg4G",
+      "agent": "Sisyphus-Junior",
+      "category": "unspecified-high",
+      "updated_at": "2026-04-16T19:11:46.763Z"
+    },
+    "todo:14": {
+      "task_key": "todo:14",
+      "task_label": "14",
+      "task_title": "npm Package Setup",
+      "session_id": "ses_2684a66c6ffeHppAANchtWTKIM",
+      "agent": "Sisyphus-Junior",
+      "category": "quick",
+      "updated_at": "2026-04-16T19:15:25.741Z"
+    },
+    "final-wave:f1": {
+      "task_key": "final-wave:f1",
+      "task_label": "F1",
+      "task_title": "**Plan Compliance Audit** — `oracle`",
+      "session_id": "ses_26847102affeZFm0k4zVtnTtbY",
+      "agent": "oracle",
+      "updated_at": "2026-04-16T19:18:34.437Z"
+    }
+  }
+}

@@ -1,0 +1,144 @@
+# LAPIS v0.1.0
+
+[meta]
+api: Swagger Petstore - OpenAPI 3.0
+base: /api/v3
+version: 1.0.27
+desc: Sample Pet Store Server based on the OpenAPI 3.0 specification
+auth: oauth2 https://petstore3.swagger.io/oauth/authorize
+
+[types]
+Pet:
+  id?: int
+  name: str
+  category?: Category
+  photoUrls: [str]
+  tags?: [Tag]
+  status?: "available" | "pending" | "sold"
+
+Category:
+  id?: int
+  name?: str
+
+Tag:
+  id?: int
+  name?: str
+
+Order:
+  id?: int
+  petId?: int
+  quantity?: int
+  shipDate?: datetime
+  status?: "placed" | "approved" | "delivered"
+  complete?: bool
+
+User:
+  id?: int
+  username?: str
+  firstName?: str
+  lastName?: str
+  email?: str
+  password?: str
+  phone?: str
+  userStatus?: int
+
+ApiResponse:
+  code?: int
+  type?: str
+  message?: str
+
+[ops]
+updatePet PUT /pet
+  Update an existing pet by Id.
+  > body: Pet
+  < Pet
+
+addPet POST /pet
+  Add a new pet to the store.
+  > body: Pet
+  < Pet
+
+findPetsByStatus GET /pet/findByStatus
+  Finds Pets by status. Multiple values with comma separated strings.
+  > status: "available" | "pending" | "sold" = "available"
+  < [Pet]
+
+findPetsByTags GET /pet/findByTags
+  Finds Pets by tags. Multiple tags with comma separated strings.
+  > tags: [str]
+  < [Pet]
+
+getPetById GET /pet/{petId}
+  Returns a single pet.
+  < Pet
+
+updatePetWithForm POST /pet/{petId}
+  Updates a pet in the store with form data.
+  > name?: str @query
+  > status?: str @query
+
+deletePet DELETE /pet/{petId}
+  Delete a pet.
+  > api_key?: str @header
+
+uploadFile POST /pet/{petId}/uploadImage
+  Upload image of the pet.
+  > additionalMetadata?: str @query
+  > body?: file
+  < ApiResponse
+
+getInventory GET /store/inventory
+  Returns a map of status codes to quantities.
+  < {str:int}
+
+placeOrder POST /store/order
+  Place a new order in the store.
+  > body: Order
+  < Order
+
+getOrderById GET /store/order/{orderId}
+  For valid response try integer IDs with value <= 5 or > 10.
+  < Order
+
+deleteOrder DELETE /store/order/{orderId}
+  For valid response try integer IDs with value < 1000.
+
+createUser POST /user
+  This can only be done by the logged in user.
+  > body: User
+  < User
+
+createUsersWithListInput POST /user/createWithList
+  Creates list of users with given input array.
+  > body: [User]
+  < User
+
+loginUser GET /user/login
+  Log into the system.
+  > username?: str
+  > password?: str
+  < str
+
+logoutUser GET /user/logout
+  Log user out of the system.
+
+getUserByName GET /user/{username}
+  Get user detail based on username.
+  < User
+
+updateUser PUT /user/{username}
+  This can only be done by the logged in user.
+  > body: User
+
+deleteUser DELETE /user/{username}
+  This can only be done by the logged in user.
+
+[errors]
+400 invalid_input
+  Invalid input, ID, or parameter value supplied.
+
+404 not_found
+  Pet, Order, or User not found.
+
+422 validation_exception
+  Validation exception on input data.

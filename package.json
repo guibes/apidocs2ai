@@ -1,0 +1,40 @@
+{
+  "name": "apidocs2ai",
+  "version": "0.1.0",
+  "description": "Convert OpenAPI/Swagger specs to AI-friendly formats with 85%+ token reduction",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "bin": {
+    "apidocs2ai": "./dist/cli.js"
+  },
+  "files": ["dist", "README.md", "LICENSE", "AGENTS.md", "CLAUDE.md"],
+  "keywords": ["openapi", "swagger", "ai", "llm", "token", "compression", "lapis", "cli"],
+  "scripts": {
+    "start": "bun src/cli.ts",
+    "test": "bun test",
+    "build": "bash scripts/build.sh",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "bun run build && bun test"
+  },
+  "dependencies": {
+    "commander": "^12.0.0",
+    "@scalar/openapi-parser": "latest",
+    "@scalar/openapi-upgrader": "latest"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/guibes/apidocs2ai.git"
+  },
+  "bugs": {
+    "url": "https://github.com/guibes/apidocs2ai/issues"
+  },
+  "homepage": "https://github.com/guibes/apidocs2ai#readme",
+  "license": "MIT"
+}

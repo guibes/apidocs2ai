@@ -1,0 +1,81 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  test:
+    name: Run Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+      - run: bun install --frozen-lockfile
+      - run: bun test
+
+  build-and-release:
+    name: Build Binaries and Release
+    needs: test
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Build binaries
+        run: |
+          bun build --compile --minify --target=bun-darwin-arm64 src/cli.ts --outfile apidocs2ai-darwin-arm64
+          bun build --compile --minify --target=bun-darwin-x64 src/cli.ts --outfile apidocs2ai-darwin-x64
+          bun build --compile --minify --target=bun-linux-x64 src/cli.ts --outfile apidocs2ai-linux-x64
+          bun build --compile --minify --target=bun-linux-arm64 src/cli.ts --outfile apidocs2ai-linux-arm64
+          bun build --compile --minify --target=bun-windows-x64 src/cli.ts --outfile apidocs2ai-windows-x64.exe
+
+      - name: Generate checksums
+        run: |
+          sha256sum apidocs2ai-darwin-arm64 apidocs2ai-darwin-x64 apidocs2ai-linux-x64 apidocs2ai-linux-arm64 apidocs2ai-windows-x64.exe > checksums.txt
+          cat checksums.txt
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            apidocs2ai-darwin-arm64
+            apidocs2ai-darwin-x64
+            apidocs2ai-linux-x64
+            apidocs2ai-linux-arm64
+            apidocs2ai-windows-x64.exe
+            checksums.txt
+          generate_release_notes: true
+
+  publish-npm:
+    name: Publish to npm
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Build for npm
+        run: bun run build
+
+      - name: Publish to npm
+        run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

@@ -1,0 +1,19 @@
+openapi: "3.0.3"
+info:
+  title: "Minimal API"
+  version: "1.0.0"
+paths:
+  /hello:
+    get:
+      operationId: "getHello"
+      summary: "Get hello"
+      responses:
+        "200":
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
