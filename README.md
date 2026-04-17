@@ -232,6 +232,61 @@ const result = await convert("openapi.yaml", { format: "lapis" });
 console.log(result);
 ```
 
+## MCP Server (Claude Desktop / Claude Code)
+
+apidocs2ai includes a built-in MCP (Model Context Protocol) server, allowing Claude to call it as a native tool.
+
+### Claude Desktop
+
+Add to your `claude_desktop_config.json`:
+
+```json
+{
+  "mcpServers": {
+    "apidocs2ai": {
+      "command": "npx",
+      "args": ["-y", "apidocs2ai-mcp"]
+    }
+  }
+}
+```
+
+Config file location:
+- macOS: `~/Library/Application Support/Claude/claude_desktop_config.json`
+- Linux: `~/.config/claude/claude_desktop_config.json`
+- Windows: `%APPDATA%\Claude\claude_desktop_config.json`
+
+### Claude Code
+
+```bash
+claude mcp add apidocs2ai -- npx -y apidocs2ai-mcp
+```
+
+### Other MCP Clients (Cursor, OpenCode, etc.)
+
+Add to your MCP configuration:
+
+```json
+{
+  "apidocs2ai": {
+    "command": "npx",
+    "args": ["-y", "apidocs2ai-mcp"]
+  }
+}
+```
+
+### Available Tools
+
+| Tool | Description |
+|------|-------------|
+| `convert-api-spec` | Convert an OpenAPI/Swagger spec to a compact AI-friendly format |
+
+**Parameters:**
+- `input` (string, required): URL or file path to the OpenAPI spec
+- `format` (enum, optional): `lapis` (default), `json`, `markdown`
+
+After setup, just ask Claude: "Convert this API spec: https://api.example.com/openapi.json"
+
 ## Supported Specs
 
 | Specification | Versions |

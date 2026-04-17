@@ -1,6 +1,6 @@
 # apidocs2ai -- Project Context
 
-CLI tool that converts OpenAPI/Swagger specs into AI-friendly formats. Parses OpenAPI 3.0.x, 3.1.x, and Swagger 2.0 (auto-upgraded), then outputs as LAPIS (80-92% token reduction), JSON, or Markdown. Single flat command, no subcommands. Input from file, URL, or stdin. Output to stdout, file, or clipboard.
+CLI tool that converts OpenAPI/Swagger specs into AI-friendly formats. Parses OpenAPI 3.0.x, 3.1.x, and Swagger 2.0 (auto-upgraded), then outputs as LAPIS (80-92% token reduction), JSON, or Markdown. Single flat command, no subcommands. Input from file, URL, or stdin. Output to stdout, file, or clipboard. Also exposes an MCP server for native Claude integration.
 
 ## Architecture
 
@@ -29,6 +29,9 @@ stdin/file/URL
      |  stdin.ts:    stdin detection and reading
      |  index.ts:    entry point
      |
+  mcp/            -- MCP server (stdio transport)
+     |  index.ts:    MCP server entry point
+     |
   types/          -- shared types
        config.ts:  OutputFormat, InputSource, CliOptions
        errors.ts:  ExitCode enum, AppError class
@@ -51,12 +54,16 @@ stdin/file/URL
 | `src/output/destinations.ts` | File and clipboard write |
 | `src/types/errors.ts` | ExitCode enum (0-5), AppError class |
 | `src/types/config.ts` | OutputFormat, InputSource, CliOptions |
+| `src/mcp.ts` | MCP server entry point (stdio transport) |
 
 ## Development Commands
 
 ```bash
 # Run CLI directly
 bun run src/cli.ts openapi.yaml
+
+# Run MCP server (stdio)
+bun run mcp
 
 # Run tests
 bun test
@@ -89,6 +96,7 @@ bun run typecheck
 - **TTY-aware progress**: Progress messages only print when stderr is a TTY (suppressed in pipes)
 - **Exit codes**: Always use ExitCode enum values (0-5). Never `process.exit()` with arbitrary numbers
 - **AppError propagation**: Throw AppError with appropriate ExitCode; pipeline.ts catches and exits
+- **MCP server**: Runs on stdio transport, implements convert-api-spec tool
 
 ## Dependencies
 

@@ -17,6 +17,31 @@ npx apidocs2ai openapi.yaml
 bun install && bun run src/cli.ts openapi.yaml
 ```
 
+## MCP Server
+
+apidocs2ai can run as an MCP server for native integration with Claude and other AI tools.
+
+### Setup
+
+```bash
+# Claude Code
+claude mcp add apidocs2ai -- npx -y apidocs2ai-mcp
+
+# Claude Desktop / Other MCP clients
+# Add to MCP config:
+# { "command": "npx", "args": ["-y", "apidocs2ai-mcp"] }
+```
+
+### Tool: convert-api-spec
+
+Converts an OpenAPI/Swagger spec to a compact format.
+
+Parameters:
+- `input` (string): URL or file path to OpenAPI spec
+- `format` (string): "lapis" (default), "json", "markdown"
+
+Returns: Converted spec as text content.
+
 ## Usage
 
 ```
