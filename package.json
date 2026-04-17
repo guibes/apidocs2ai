@@ -1,6 +1,6 @@
 {
   "name": "apidocs2ai",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Convert OpenAPI/Swagger specs to AI-friendly formats with 85%+ token reduction",
   "type": "module",
   "main": "./dist/index.js",
